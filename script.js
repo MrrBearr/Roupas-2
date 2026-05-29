@@ -95,56 +95,64 @@
   }, { passive: true });
   updateScroll();
 
-  // --- Reveal on scroll com IntersectionObserver ---
+  // --- Reveal on scroll (scroll listener puro, mais robusto que IntersectionObserver) ---
+  // Estrategia: tudo eh visivel por padrao no CSS. Aqui marcamos so os elementos
+  // que estao FORA da viewport com .reveal-init. Esses entram em modo invisivel
+  // e ficam visiveis quando rolarem para a tela. Safety net mostra tudo apos 2s.
   var revealEls = document.querySelectorAll('[data-reveal]');
-  if (revealEls.length) {
+  if (revealEls.length && !prefersReducedMotion) {
     revealEls.forEach(function (el) {
       var d = el.getAttribute('data-reveal-delay');
       if (d) el.style.setProperty('--reveal-delay', d + 'ms');
     });
 
-    var showReveal = function (el) {
-      if (!el.classList.contains('is-visible')) {
-        el.classList.add('is-visible');
-      }
-    };
+    var revealMargin = 80; // dispara quando entra 80px na viewport
 
-    if ('IntersectionObserver' in window) {
-      var revealObserver = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            showReveal(entry.target);
-            revealObserver.unobserve(entry.target);
-          }
-        });
-      }, {
-        rootMargin: '0px 0px -40px 0px',
-        threshold: 0
-      });
-
+    var checkReveals = function () {
+      var vh = window.innerHeight || document.documentElement.clientHeight;
       revealEls.forEach(function (el) {
-        // Fallback síncrono: se já está visível agora, mostra na hora
-        // (evita problemas com scroll restoration / cache / threshold)
-        if (isInViewport(el, -100)) {
-          showReveal(el);
-        } else {
-          revealObserver.observe(el);
+        if (el.classList.contains('is-visible')) return;
+        var r = el.getBoundingClientRect();
+        if (r.top < vh - revealMargin && r.bottom > revealMargin) {
+          el.classList.add('is-visible');
         }
       });
+    };
 
-      // Safety net: após 2.5s, qualquer reveal ainda invisível aparece de qualquer jeito
-      setTimeout(function () {
-        revealEls.forEach(function (el) {
-          if (!el.classList.contains('is-visible') && isInViewport(el, -200)) {
-            showReveal(el);
-            try { revealObserver.unobserve(el); } catch (e) {}
-          }
-        });
-      }, 2500);
-    } else {
-      // Sem IntersectionObserver: mostra tudo
-      revealEls.forEach(showReveal);
-    }
+    // Marca como "a animar" so os que estao fora da viewport
+    var vh0 = window.innerHeight || document.documentElement.clientHeight;
+    revealEls.forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      var alreadyVisible = r.top < vh0 - revealMargin && r.bottom > revealMargin;
+      if (!alreadyVisible) {
+        el.classList.add('reveal-init');
+      }
+    });
+
+    // Listener de scroll com rAF
+    var revealTicking = false;
+    var onScroll = function () {
+      if (revealTicking) return;
+      revealTicking = true;
+      requestAnimationFrame(function () {
+        checkReveals();
+        revealTicking = false;
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+
+    // Confere uma vez no load
+    checkReveals();
+
+    // Safety net: depois de 2 segundos, qualquer elemento ainda invisivel aparece
+    setTimeout(function () {
+      revealEls.forEach(function (el) {
+        if (el.classList.contains('reveal-init') && !el.classList.contains('is-visible')) {
+          el.classList.add('is-visible');
+        }
+      });
+    }, 2000);
   }
 
   // --- Counter animation nos números do hero ---

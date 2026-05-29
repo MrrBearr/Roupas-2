@@ -488,10 +488,11 @@ p  { color: var(--ink-soft); }
 .link-arrow:hover svg { transform: translateX(2px); }
 
 /* ============================================================
-   REVEAL ANIMATIONS (scroll-driven via IntersectionObserver)
-   Só aplicam quando o JS está ativo (html.js). Sem JS, tudo aparece normal.
+   REVEAL ANIMATIONS
+   Tudo eh visivel por padrao. O JS marca elementos com .reveal-init
+   apenas quando vai anima-los. Se o JS falhar, NADA fica invisivel.
    ============================================================ */
-html.js [data-reveal] {
+[data-reveal].reveal-init {
   opacity: 0;
   transform: translateY(28px);
   transition:
@@ -500,14 +501,14 @@ html.js [data-reveal] {
   transition-delay: var(--reveal-delay, 0ms);
   will-change: opacity, transform;
 }
-html.js [data-reveal].is-visible {
+[data-reveal].reveal-init.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
 
 /* Quando reduzir motion */
 @media (prefers-reduced-motion: reduce) {
-  html.js [data-reveal] { opacity: 1; transform: none; transition: none; }
+  [data-reveal].reveal-init { opacity: 1; transform: none; transition: none; }
 }
 
 /* ============================================================
