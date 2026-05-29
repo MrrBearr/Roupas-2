@@ -7,6 +7,10 @@
 (function () {
   'use strict';
 
+  // Marca que o JS está ativo: sem isso, o CSS deixa tudo visível por padrão.
+  // Esse é nosso seguro contra a página ficar invisível se algo der errado.
+  document.documentElement.classList.add('js');
+
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // --- Boot: marca corpo como carregado pra disparar a animação do hero ---
@@ -18,6 +22,14 @@
     requestAnimationFrame(bootHero);
   } else {
     window.addEventListener('DOMContentLoaded', bootHero);
+  }
+
+  // Helper: elemento está (parcialmente) na viewport agora?
+  function isInViewport(el, margin) {
+    margin = margin || 0;
+    var r = el.getBoundingClientRect();
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    return r.top < vh - margin && r.bottom > margin;
   }
 
   // --- Ano dinâmico no footer ---
@@ -91,21 +103,47 @@
       if (d) el.style.setProperty('--reveal-delay', d + 'ms');
     });
 
+    var showReveal = function (el) {
+      if (!el.classList.contains('is-visible')) {
+        el.classList.add('is-visible');
+      }
+    };
+
     if ('IntersectionObserver' in window) {
       var revealObserver = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
+            showReveal(entry.target);
             revealObserver.unobserve(entry.target);
           }
         });
       }, {
-        rootMargin: '0px 0px -10% 0px',
-        threshold: 0.12
+        rootMargin: '0px 0px -40px 0px',
+        threshold: 0
       });
-      revealEls.forEach(function (el) { revealObserver.observe(el); });
+
+      revealEls.forEach(function (el) {
+        // Fallback síncrono: se já está visível agora, mostra na hora
+        // (evita problemas com scroll restoration / cache / threshold)
+        if (isInViewport(el, -100)) {
+          showReveal(el);
+        } else {
+          revealObserver.observe(el);
+        }
+      });
+
+      // Safety net: após 2.5s, qualquer reveal ainda invisível aparece de qualquer jeito
+      setTimeout(function () {
+        revealEls.forEach(function (el) {
+          if (!el.classList.contains('is-visible') && isInViewport(el, -200)) {
+            showReveal(el);
+            try { revealObserver.unobserve(el); } catch (e) {}
+          }
+        });
+      }, 2500);
     } else {
-      revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+      // Sem IntersectionObserver: mostra tudo
+      revealEls.forEach(showReveal);
     }
   }
 
