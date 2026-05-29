@@ -66,14 +66,35 @@
     });
   });
 
-  // --- Header com sombra ao rolar + scroll progress bar ---
+  // --- Header inteligente (hide on scroll down, show on scroll up) + scroll progress bar ---
   var header = document.querySelector('.site-header');
   var progressEl = document.getElementById('scrollProgress');
   var ticking = false;
+  var lastY = 0;
+  var scrollDir = 'up';
+  var scrollAccum = 0; // soma a distancia continua na mesma direcao
 
   function updateScroll() {
     var y = window.scrollY || window.pageYOffset;
-    if (header) header.classList.toggle('is-scrolled', y > 8);
+    var delta = y - lastY;
+
+    if (header) {
+      header.classList.toggle('is-scrolled', y > 8);
+
+      // Hide on scroll down (somente apos passar o hero), show on scroll up
+      var newDir = delta > 0 ? 'down' : 'up';
+      if (newDir !== scrollDir) {
+        scrollDir = newDir;
+        scrollAccum = 0;
+      }
+      scrollAccum += Math.abs(delta);
+
+      if (y > 240 && scrollDir === 'down' && scrollAccum > 60) {
+        header.classList.add('is-hidden');
+      } else if (scrollDir === 'up' && scrollAccum > 30) {
+        header.classList.remove('is-hidden');
+      }
+    }
 
     if (progressEl) {
       var docH = document.documentElement.scrollHeight - window.innerHeight;
@@ -84,6 +105,7 @@
     // Parallax leve
     if (!prefersReducedMotion) updateParallax(y);
 
+    lastY = y;
     ticking = false;
   }
 
@@ -182,15 +204,15 @@
       return;
     }
 
-    var duration = 1600;
+    var duration = 2400;
     var start = performance.now();
     var startVal = 0;
 
     function step(now) {
       var elapsed = now - start;
       var t = Math.min(1, elapsed / duration);
-      // easeOutExpo
-      var eased = t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+      // easeOutQuint - mais suave que easeOutExpo
+      var eased = 1 - Math.pow(1 - t, 5);
       var current = Math.round(startVal + (target - startVal) * eased);
       el.textContent = current.toLocaleString('pt-BR');
       if (t < 1) requestAnimationFrame(step);
@@ -198,67 +220,97 @@
     requestAnimationFrame(step);
   }
 
-  // --- Magnetic buttons (apenas em hover, desktop) ---
+  // --- Magnetic buttons com LERP (interpolacao suave, com inercia) ---
   if (!prefersReducedMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     var magnetics = document.querySelectorAll('.magnetic');
     magnetics.forEach(function (el) {
-      var rect;
-      var rafId;
+      var state = { rect: null, tx: 0, ty: 0, cx: 0, cy: 0, raf: null, active: false };
+
+      var loop = function () {
+        // Lerp: aproxima current ao target com fator 0.12 (quanto menor, mais suave)
+        state.cx += (state.tx - state.cx) * 0.18;
+        state.cy += (state.ty - state.cy) * 0.18;
+        el.style.transform = 'translate3d(' + state.cx.toFixed(2) + 'px, ' + state.cy.toFixed(2) + 'px, 0)';
+
+        var dx = Math.abs(state.tx - state.cx);
+        var dy = Math.abs(state.ty - state.cy);
+        if (state.active || dx > 0.2 || dy > 0.2) {
+          state.raf = requestAnimationFrame(loop);
+        } else {
+          state.raf = null;
+          el.style.transform = '';
+        }
+      };
 
       el.addEventListener('mouseenter', function () {
-        rect = el.getBoundingClientRect();
+        state.rect = el.getBoundingClientRect();
+        state.active = true;
+        if (!state.raf) state.raf = requestAnimationFrame(loop);
       });
 
       el.addEventListener('mousemove', function (e) {
-        if (!rect) rect = el.getBoundingClientRect();
-        var x = e.clientX - rect.left - rect.width / 2;
-        var y = e.clientY - rect.top - rect.height / 2;
-        if (rafId) cancelAnimationFrame(rafId);
-        rafId = requestAnimationFrame(function () {
-          el.style.transform = 'translate(' + (x * 0.18) + 'px, ' + (y * 0.28) + 'px)';
-        });
+        if (!state.rect) state.rect = el.getBoundingClientRect();
+        state.tx = (e.clientX - state.rect.left - state.rect.width / 2) * 0.22;
+        state.ty = (e.clientY - state.rect.top - state.rect.height / 2) * 0.32;
       });
 
       el.addEventListener('mouseleave', function () {
-        if (rafId) cancelAnimationFrame(rafId);
-        el.style.transform = '';
-        rect = null;
+        state.active = false;
+        state.tx = 0;
+        state.ty = 0;
+        state.rect = null;
+        if (!state.raf) state.raf = requestAnimationFrame(loop);
       });
     });
   }
 
-  // --- Tilt 3D nos collection cards ---
+  // --- Tilt 3D com LERP nos collection cards ---
   if (!prefersReducedMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     var tiltEls = document.querySelectorAll('.tilt');
     tiltEls.forEach(function (el) {
-      var rect;
-      var rafId;
+      var state = { rect: null, tx: 0, ty: 0, cx: 0, cy: 0, raf: null, active: false };
+
+      var loop = function () {
+        state.cx += (state.tx - state.cx) * 0.10; // lerp mais suave que magnetic
+        state.cy += (state.ty - state.cy) * 0.10;
+
+        var lift = state.active ? -4 : 0;
+        el.style.transform =
+          'perspective(1100px) ' +
+          'rotateY(' + state.cx.toFixed(2) + 'deg) ' +
+          'rotateX(' + (-state.cy).toFixed(2) + 'deg) ' +
+          'translateY(' + lift + 'px)';
+
+        var dx = Math.abs(state.tx - state.cx);
+        var dy = Math.abs(state.ty - state.cy);
+        if (state.active || dx > 0.05 || dy > 0.05) {
+          state.raf = requestAnimationFrame(loop);
+        } else {
+          state.raf = null;
+          el.style.transform = '';
+        }
+      };
 
       el.addEventListener('mouseenter', function () {
-        rect = el.getBoundingClientRect();
-        el.style.transition = 'box-shadow .6s var(--ease-out)';
+        state.rect = el.getBoundingClientRect();
+        state.active = true;
+        if (!state.raf) state.raf = requestAnimationFrame(loop);
       });
 
       el.addEventListener('mousemove', function (e) {
-        if (!rect) rect = el.getBoundingClientRect();
-        var x = (e.clientX - rect.left) / rect.width - 0.5;
-        var y = (e.clientY - rect.top) / rect.height - 0.5;
-        if (rafId) cancelAnimationFrame(rafId);
-        rafId = requestAnimationFrame(function () {
-          el.style.transform =
-            'perspective(1000px) ' +
-            'rotateY(' + (x * 5) + 'deg) ' +
-            'rotateX(' + (-y * 5) + 'deg) ' +
-            'translateY(-4px)';
-        });
+        if (!state.rect) state.rect = el.getBoundingClientRect();
+        var nx = (e.clientX - state.rect.left) / state.rect.width - 0.5;
+        var ny = (e.clientY - state.rect.top) / state.rect.height - 0.5;
+        state.tx = nx * 6;  // graus
+        state.ty = ny * 6;
       });
 
       el.addEventListener('mouseleave', function () {
-        if (rafId) cancelAnimationFrame(rafId);
-        el.style.transition = 'transform .8s var(--ease-out), box-shadow .6s var(--ease-out)';
-        el.style.transform = '';
-        setTimeout(function () { el.style.transition = ''; }, 820);
-        rect = null;
+        state.active = false;
+        state.tx = 0;
+        state.ty = 0;
+        state.rect = null;
+        if (!state.raf) state.raf = requestAnimationFrame(loop);
       });
     });
   }
@@ -285,7 +337,30 @@
     });
   }
 
-  // --- Smooth scroll customizado pros âncoras (com offset do header) ---
+  // --- Smooth scroll customizado pros âncoras com easing cinematografico ---
+  // Em vez de usar 'smooth' nativo (varia muito entre navegadores), faz a
+  // animacao manualmente com easeInOutCubic: comeca lento, acelera, desacelera.
+  function smoothScrollTo(targetY, duration) {
+    duration = duration || 900;
+    var startY = window.scrollY || window.pageYOffset;
+    var diff = targetY - startY;
+    if (Math.abs(diff) < 4) return;
+    var start = performance.now();
+
+    function easeInOutCubic(t) {
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    function step(now) {
+      var elapsed = now - start;
+      var t = Math.min(1, elapsed / duration);
+      var eased = easeInOutCubic(t);
+      window.scrollTo(0, startY + diff * eased);
+      if (t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
   document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
     anchor.addEventListener('click', function (e) {
       var href = anchor.getAttribute('href');
@@ -294,11 +369,16 @@
       if (!target) return;
       e.preventDefault();
       var headerOffset = (header ? header.offsetHeight : 0) - 4;
-      var elementPosition = target.getBoundingClientRect().top + window.pageYOffset;
-      window.scrollTo({
-        top: elementPosition - headerOffset,
-        behavior: prefersReducedMotion ? 'auto' : 'smooth'
-      });
+      var targetY = target.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+
+      if (prefersReducedMotion) {
+        window.scrollTo(0, targetY);
+      } else {
+        // duration proporcional a distancia (max 1300ms, min 600ms)
+        var dist = Math.abs(targetY - (window.scrollY || 0));
+        var dur = Math.max(600, Math.min(1300, dist * 0.8));
+        smoothScrollTo(targetY, dur);
+      }
     });
   });
 
