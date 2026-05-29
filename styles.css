@@ -1526,3 +1526,280 @@ p  { color: var(--ink-soft); }
   .hero-meta,
   .hero-media { opacity: 1 !important; transform: none !important; }
 }
+
+
+/* ============================================================
+   PREMIUM EDITORIAL ENHANCEMENTS
+   ============================================================ */
+
+/* Section number — capitulo editorial */
+.section-number {
+  display: block;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: .92rem;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: .14em;
+  margin-bottom: 18px;
+}
+.section-head--row .section-number { margin-bottom: 6px; }
+.eyebrow--light-num { color: rgba(255,255,255,.55) !important; }
+
+/* Brand wordmark giant marquee — entre hero e colecoes */
+.brand-marquee {
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 28px 0;
+  background: var(--bg);
+  position: relative;
+}
+.brand-marquee-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 60px;
+  white-space: nowrap;
+  font-family: var(--serif);
+  font-size: clamp(3.5rem, 9vw, 7rem);
+  font-weight: 400;
+  letter-spacing: -.025em;
+  line-height: 1;
+  color: var(--ink);
+  animation: brandSlide 38s linear infinite;
+  will-change: transform;
+}
+.brand-marquee-track > span:not(.brand-marquee-dot) { padding: 0 6px; }
+.brand-marquee-track em {
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 400;
+}
+.brand-marquee-dot {
+  font-size: 1.6rem;
+  color: var(--accent);
+  opacity: .7;
+}
+@keyframes brandSlide {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ============================================================
+   LOOKBOOK editorial
+   ============================================================ */
+.lookbook-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 16px;
+}
+.lookbook-item {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 0;
+  background: #ddd;
+  aspect-ratio: 4/5;
+  isolation: isolate;
+  transition: transform .8s var(--ease-out), box-shadow .8s var(--ease-out);
+}
+.lookbook-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+.lookbook-item--tall {
+  grid-row: span 2;
+  aspect-ratio: 4/6;
+}
+.lookbook-item--wide {
+  grid-column: span 2;
+  aspect-ratio: 16/8;
+}
+.lookbook-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.4s var(--ease-out);
+}
+.lookbook-item:hover img { transform: scale(1.05); }
+.lookbook-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.62) 0%, rgba(0,0,0,.10) 50%, rgba(0,0,0,0) 100%);
+  transition: opacity .5s var(--ease-out);
+}
+.lookbook-item figcaption {
+  position: absolute;
+  bottom: 26px;
+  left: 26px;
+  right: 26px;
+  z-index: 2;
+  color: #fff;
+  font-family: var(--serif);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.lookbook-item figcaption span {
+  font-style: italic;
+  font-size: .85rem;
+  opacity: .7;
+  letter-spacing: .04em;
+  margin-bottom: 4px;
+}
+.lookbook-item figcaption strong {
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+  font-weight: 500;
+  letter-spacing: -.01em;
+  line-height: 1.1;
+  font-style: normal;
+}
+.lookbook-item figcaption em {
+  font-style: italic;
+  font-weight: 400;
+  font-size: .94rem;
+  color: rgba(255,255,255,.85);
+  margin-top: 8px;
+  font-family: var(--sans);
+  line-height: 1.45;
+  max-width: 380px;
+}
+
+/* ============================================================
+   STATS editoriais
+   ============================================================ */
+.stats {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.stats-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.stats-grid li {
+  text-align: left;
+  position: relative;
+  padding-left: 24px;
+}
+.stats-grid li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 14px;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  transform: rotate(45deg);
+}
+.stats-grid strong {
+  display: block;
+  font-family: var(--serif);
+  font-size: clamp(3rem, 7vw, 5rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--ink);
+  letter-spacing: -.03em;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.stats-out {
+  font-size: .35em;
+  font-style: normal;
+  color: var(--muted);
+  font-family: var(--sans);
+  font-weight: 400;
+  letter-spacing: 0;
+  margin-left: 4px;
+  vertical-align: super;
+}
+.stats-label {
+  font-size: .82rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* ============================================================
+   FOOTER WORDMARK
+   ============================================================ */
+.footer-wordmark {
+  text-align: center;
+  font-family: var(--serif);
+  font-size: clamp(4rem, 14vw, 11rem);
+  font-weight: 400;
+  letter-spacing: -.04em;
+  line-height: 1;
+  color: var(--ink);
+  margin-bottom: 56px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+.footer-wordmark span {
+  display: inline-block;
+  position: relative;
+}
+.footer-wordmark em {
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 400;
+}
+
+/* ============================================================
+   PRODUCT CARD: image swap on hover (front -> back)
+   Aplica zoom mais forte + leve tilt e brilho elegante
+   ============================================================ */
+.product-card .product-media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid transparent;
+  border-radius: inherit;
+  transition: border-color .4s var(--ease-out);
+  z-index: 3;
+  pointer-events: none;
+}
+.product-card:hover .product-media::before {
+  border-color: rgba(184, 89, 59, 0.35);
+}
+
+/* Refinamento: section-head com section-number tem mais espaco */
+.section-head .section-number + .eyebrow {
+  margin-top: -6px;
+}
+
+/* ============================================================
+   RESPONSIVO PARA NOVOS BLOCOS
+   ============================================================ */
+@media (max-width: 980px) {
+  .lookbook-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .lookbook-item--tall { grid-row: auto; aspect-ratio: 4/5; }
+  .lookbook-item--wide { grid-column: span 2; aspect-ratio: 16/9; }
+
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
+
+  .brand-marquee { padding: 22px 0; }
+}
+
+@media (max-width: 720px) {
+  .lookbook-grid { grid-template-columns: 1fr; }
+  .lookbook-item, .lookbook-item--tall, .lookbook-item--wide {
+    grid-column: auto;
+    grid-row: auto;
+    aspect-ratio: 4/5;
+  }
+
+  .stats-grid { grid-template-columns: 1fr; gap: 28px; }
+
+  .footer-wordmark { margin-bottom: 40px; }
+
+  .brand-marquee { padding: 18px 0; }
+  .brand-marquee-track { gap: 38px; }
+}
