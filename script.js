@@ -7,6 +7,13 @@
 (function () {
   'use strict';
 
+  var demoWhatsApp = 'https://wa.me/5583921483515?text=' + encodeURIComponent('Olá, Caio! Vi a demonstração da Marcela Modas e quero conversar sobre um site para o meu negócio.');
+  document.querySelectorAll('a[href*="wa.me/"]').forEach(function (link) {
+    link.href = demoWhatsApp;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+  });
+
   // --- Ano dinâmico no footer ---
   var yearEl = document.getElementById('year');
   if (yearEl) {
@@ -18,19 +25,39 @@
   var nav = document.getElementById('navMobile');
 
   if (toggle && nav) {
+    var closeMenu = function () {
+      nav.classList.remove('is-open');
+      nav.setAttribute('aria-hidden', 'true');
+      nav.setAttribute('inert', '');
+      toggle.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Abrir menu');
+      document.body.style.overflow = '';
+    };
+
     toggle.addEventListener('click', function () {
       var isOpen = nav.classList.toggle('is-open');
       toggle.classList.toggle('is-open', isOpen);
       toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      toggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+      nav.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+      if (isOpen) nav.removeAttribute('inert');
+      else nav.setAttribute('inert', '');
+      document.body.style.overflow = isOpen ? 'hidden' : '';
     });
 
     // Fecha o menu ao clicar em um link
     nav.querySelectorAll('a').forEach(function (link) {
       link.addEventListener('click', function () {
-        nav.classList.remove('is-open');
-        toggle.classList.remove('is-open');
-        toggle.setAttribute('aria-expanded', 'false');
+        closeMenu();
       });
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && nav.classList.contains('is-open')) {
+        closeMenu();
+        toggle.focus();
+      }
     });
   }
 

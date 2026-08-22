@@ -5,12 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#1c1a17" />
 
-  <title>Marcela Modas — Loja de roupas em Patos de Minas | Moda feminina e masculina</title>
-  <meta name="description" content="Roupa nova toda semana, atendimento de verdade e preço justo. Marcela Modas é loja de roupas em Patos de Minas. Vem conhecer ou chama no WhatsApp." />
+  <title>Marcela Modas — Projeto demonstrativo da CA Studio</title>
+  <meta name="description" content="Projeto demonstrativo de site para loja de roupas criado pela CA Studio. Marca, produtos, contatos, depoimentos e demais informações são fictícios." />
+  <meta name="robots" content="noindex, nofollow" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Marcela Modas — Loja de roupas em Patos de Minas" />
-  <meta property="og:description" content="Coleção nova toda semana. Moda feminina e masculina. Atendimento que ajuda de verdade. Vem conhecer." />
+  <meta property="og:title" content="Marcela Modas — Projeto demonstrativo" />
+  <meta property="og:description" content="Demonstração fictícia de site para loja de roupas criada pela CA Studio." />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="pt_BR" />
 
@@ -19,33 +20,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css" />
+  <noscript><style>.reveal,[data-reveal]{opacity:1!important;visibility:visible!important;transform:none!important}</style></noscript>
 
-  <!-- LocalBusiness Schema (SEO local) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ClothingStore",
-    "name": "Marcela Modas",
-    "image": "https://images.unsplash.com/photo-1581338834647-b0fb40704e21?w=1200&q=80&auto=format&fit=crop",
-    "telephone": "+55 34 9999-9999",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Rua Major Gote, 752 - Centro",
-      "addressLocality": "Patos de Minas",
-      "addressRegion": "MG",
-      "postalCode": "38700-000",
-      "addressCountry": "BR"
-    },
-    "openingHoursSpecification": [
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "09:00", "closes": "18:30" },
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "13:00" }
-    ],
-    "priceRange": "$$",
-    "url": "https://marcelamodas.com.br"
-  }
-  </script>
 </head>
 <body>
+  <aside class="demo-notice" id="demo-info" aria-label="Aviso de projeto demonstrativo">
+    <strong>Projeto demonstrativo da CA Studio</strong><span aria-hidden="true"> — </span><span>marca e informações fictícias</span>
+  </aside>
 
   <!-- ============== ANNOUNCEMENT BAR ============== -->
   <div class="topbar">
@@ -66,26 +47,26 @@
         <a href="#colecoes">Coleções</a>
         <a href="#novidades">Novidades</a>
         <a href="#sobre">Sobre</a>
-        <a href="#depoimentos">Clientes</a>
+        <a href="#depoimentos">Depoimentos</a>
         <a href="#faq">Dúvidas</a>
       </nav>
 
       <div class="header-actions">
-        <a class="btn btn-whatsapp" href="https://wa.me/5534999999999?text=Oi!%20Vim%20pelo%20site." target="_blank" rel="noopener">
+        <a class="btn btn-whatsapp" href="https://wa.me/5583921483515" target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M20.5 3.5A11 11 0 0 0 3.7 17.6L2 22l4.5-1.7A11 11 0 1 0 20.5 3.5Zm-8.5 18a9 9 0 0 1-4.6-1.3l-.3-.2-2.7 1 .9-2.6-.2-.3A9 9 0 1 1 12 21.5Zm5.2-6.8c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.8-1.9c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.5.1-.7.4-.2.3-.9.9-.9 2.2 0 1.3.9 2.5 1 2.7.1.2 1.8 2.7 4.3 3.8.6.3 1.1.4 1.4.5.6.2 1.2.2 1.6.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3Z"/></svg>
           <span>WhatsApp</span>
         </a>
-        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">
+        <button type="button" class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navMobile">
           <span></span><span></span><span></span>
         </button>
       </div>
     </div>
 
-    <nav class="nav-mobile" id="navMobile" aria-label="Menu mobile">
+    <nav class="nav-mobile" id="navMobile" aria-label="Menu mobile" aria-hidden="true" inert>
       <a href="#colecoes">Coleções</a>
       <a href="#novidades">Novidades</a>
       <a href="#sobre">Sobre</a>
-      <a href="#depoimentos">Clientes</a>
+      <a href="#depoimentos">Depoimentos</a>
       <a href="#faq">Dúvidas</a>
       <a href="#visitar">Como chegar</a>
     </nav>
@@ -102,7 +83,7 @@
           <p class="lede">A gente garimpa peça boa, monta look com você e ainda dá palpite sincero. Vem conhecer a loja ou chama a gente no WhatsApp — respondemos rapidinho.</p>
 
           <div class="hero-cta">
-            <a class="btn btn-primary" href="https://wa.me/5534999999999?text=Oi!%20Quero%20ver%20as%20novidades." target="_blank" rel="noopener">
+            <a class="btn btn-primary" href="https://wa.me/5583921483515" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M20.5 3.5A11 11 0 0 0 3.7 17.6L2 22l4.5-1.7A11 11 0 1 0 20.5 3.5Zm-8.5 18a9 9 0 0 1-4.6-1.3l-.3-.2-2.7 1 .9-2.6-.2-.3A9 9 0 1 1 12 21.5Z"/></svg>
               Chamar no WhatsApp
             </a>
@@ -110,9 +91,9 @@
           </div>
 
           <ul class="hero-meta">
-            <li><strong>10 anos</strong> atendendo Patos</li>
-            <li><strong>+1.200</strong> clientes fiéis</li>
-            <li><strong>Coleção nova</strong> toda quinta</li>
+            <li><strong>4</strong> categorias em destaque</li>
+            <li><strong>WhatsApp</strong> em cada produto</li>
+            <li><strong>Layout</strong> responsivo</li>
           </ul>
         </div>
 
@@ -136,7 +117,7 @@
         </header>
 
         <div class="grid-collections">
-          <a class="collection-card collection-card--lg" href="https://wa.me/5534999999999?text=Quero%20ver%20a%20cole%C3%A7%C3%A3o%20feminina." target="_blank" rel="noopener">
+          <a class="collection-card collection-card--lg" href="https://wa.me/5583921483515" target="_blank" rel="noopener noreferrer">
             <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?w=900&q=80&auto=format&fit=crop" alt="Coleção feminina" loading="lazy" />
             <div class="collection-info">
               <span>01</span>
@@ -144,7 +125,7 @@
               <p>Vestidos, blusas, calças e looks que combinam com você.</p>
             </div>
           </a>
-          <a class="collection-card" href="https://wa.me/5534999999999?text=Quero%20ver%20a%20cole%C3%A7%C3%A3o%20masculina." target="_blank" rel="noopener">
+          <a class="collection-card" href="https://wa.me/5583921483515" target="_blank" rel="noopener noreferrer">
             <img src="https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?w=700&q=80&auto=format&fit=crop" alt="Coleção masculina" loading="lazy" />
             <div class="collection-info">
               <span>02</span>
@@ -152,7 +133,7 @@
               <p>Camisas, polos, calças e peças do dia a dia.</p>
             </div>
           </a>
-          <a class="collection-card" href="https://wa.me/5534999999999?text=Quero%20ver%20vestidos%20de%20festa." target="_blank" rel="noopener">
+          <a class="collection-card" href="https://wa.me/5583921483515" target="_blank" rel="noopener noreferrer">
             <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=700&q=80&auto=format&fit=crop" alt="Vestidos de festa" loading="lazy" />
             <div class="collection-info">
               <span>03</span>
@@ -160,7 +141,7 @@
               <p>Pra casamento, formatura e aquele evento importante.</p>
             </div>
           </a>
-          <a class="collection-card" href="https://wa.me/5534999999999?text=Quero%20ver%20acess%C3%B3rios." target="_blank" rel="noopener">
+          <a class="collection-card" href="https://wa.me/5583921483515" target="_blank" rel="noopener noreferrer">
             <img src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=700&q=80&auto=format&fit=crop" alt="Acessórios" loading="lazy" />
             <div class="collection-info">
               <span>04</span>
@@ -180,7 +161,7 @@
             <span class="eyebrow">Chegou esta semana</span>
             <h2>Novidades da loja.</h2>
           </div>
-          <a class="link-arrow" href="https://wa.me/5534999999999?text=Quero%20ver%20todas%20as%20novidades." target="_blank" rel="noopener">
+          <a class="link-arrow" href="https://wa.me/5583921483515" target="_blank" rel="noopener noreferrer">
             Ver tudo no WhatsApp
             <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
@@ -195,7 +176,7 @@
             <h3>Vestido midi floral</h3>
             <p class="product-meta">Tamanhos P ao GG</p>
             <p class="product-price">R$ 189,90 <small>ou 4x de R$ 47,47</small></p>
-            <a class="btn btn-outline btn-sm" href="https://wa.me/5534999999999?text=Tenho%20interesse%20no%20vestido%20midi%20floral." target="_blank" rel="noopener">Quero esse</a>
+            <a class="btn btn-outline btn-sm" href="https://wa.me/5583921483515" target="_blank" rel="noopener noreferrer">Quero esse</a>
           </article>
 
           <article class="product-card">
@@ -205,7 +186,7 @@
             <h3>Camisa social slim</h3>
             <p class="product-meta">P · M · G · GG</p>
             <p class="product-price">R$ 159,00 <small>ou 3x sem juros</small></p>
-            <a class="btn btn-outline btn-sm" href="https://wa.me/5534999999999?text=Tenho%20interesse%20na%20camisa%20social%20slim." target="_blank" rel="noopener">Quero essa</a>
+            <a class="btn btn-outline btn-sm" href="https://wa.me/5583921483515" target="_blank" rel="noopener noreferrer">Quero essa</a>
           </article>
 
           <article class="product-card">
@@ -216,7 +197,7 @@
             <h3>Blusa cropped tricô</h3>
             <p class="product-meta">Tamanho único</p>
             <p class="product-price">R$ 89,90</p>
-            <a class="btn btn-outline btn-sm" href="https://wa.me/5534999999999?text=Tenho%20interesse%20na%20blusa%20cropped%20tric%C3%B4." target="_blank" rel="noopener">Quero essa</a>
+            <a class="btn btn-outline btn-sm" href="https://wa.me/5583921483515" target="_blank" rel="noopener noreferrer">Quero essa</a>
           </article>
 
           <article class="product-card">
@@ -226,7 +207,7 @@
             <h3>Calça wide leg</h3>
             <p class="product-meta">36 ao 46</p>
             <p class="product-price">R$ 219,00 <small>ou 4x de R$ 54,75</small></p>
-            <a class="btn btn-outline btn-sm" href="https://wa.me/5534999999999?text=Tenho%20interesse%20na%20cal%C3%A7a%20wide%20leg." target="_blank" rel="noopener">Quero essa</a>
+            <a class="btn btn-outline btn-sm" href="https://wa.me/5583921483515" target="_blank" rel="noopener noreferrer">Quero essa</a>
           </article>
 
           <article class="product-card">
@@ -236,7 +217,7 @@
             <h3>Camiseta básica premium</h3>
             <p class="product-meta">Algodão pima</p>
             <p class="product-price">R$ 79,90</p>
-            <a class="btn btn-outline btn-sm" href="https://wa.me/5534999999999?text=Tenho%20interesse%20na%20camiseta%20b%C3%A1sica%20premium." target="_blank" rel="noopener">Quero essa</a>
+            <a class="btn btn-outline btn-sm" href="https://wa.me/5583921483515" target="_blank" rel="noopener noreferrer">Quero essa</a>
           </article>
 
           <article class="product-card">
@@ -247,7 +228,7 @@
             <h3>Jaqueta jeans clara</h3>
             <p class="product-meta">P · M · G</p>
             <p class="product-price">R$ 249,00 <small>ou 4x sem juros</small></p>
-            <a class="btn btn-outline btn-sm" href="https://wa.me/5534999999999?text=Tenho%20interesse%20na%20jaqueta%20jeans%20clara." target="_blank" rel="noopener">Quero essa</a>
+            <a class="btn btn-outline btn-sm" href="https://wa.me/5583921483515" target="_blank" rel="noopener noreferrer">Quero essa</a>
           </article>
         </div>
       </div>
@@ -310,8 +291,8 @@
     <section class="section section-alt" id="depoimentos">
       <div class="container">
         <header class="section-head">
-          <span class="eyebrow">Quem já comprou</span>
-          <h2>O que as clientes falam.</h2>
+          <span class="eyebrow">Depoimentos ilustrativos</span>
+          <h2>Exemplos de como a prova social pode aparecer.</h2>
         </header>
 
         <div class="grid-quotes">
@@ -347,22 +328,19 @@
       <div class="container">
         <header class="section-head section-head--row">
           <div>
-            <span class="eyebrow">@marcelamodas</span>
-            <h2>No nosso Instagram.</h2>
+            <span class="eyebrow">Composição para redes sociais</span>
+            <h2>Uma grade visual integrada ao site.</h2>
           </div>
-          <a class="link-arrow" href="https://instagram.com" target="_blank" rel="noopener">
-            Seguir a loja
-            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
+          <span class="link-arrow">Perfil ilustrativo</span>
         </header>
 
         <div class="grid-instagram">
-          <a href="https://instagram.com" target="_blank" rel="noopener"><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500&q=80&auto=format&fit=crop" alt="Look do dia" loading="lazy"/></a>
-          <a href="https://instagram.com" target="_blank" rel="noopener"><img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=500&q=80&auto=format&fit=crop" alt="Coleção nova" loading="lazy"/></a>
-          <a href="https://instagram.com" target="_blank" rel="noopener"><img src="https://images.unsplash.com/photo-1469398715555-76331a6c7c9b?w=500&q=80&auto=format&fit=crop" alt="Acessórios" loading="lazy"/></a>
-          <a href="https://instagram.com" target="_blank" rel="noopener"><img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500&q=80&auto=format&fit=crop" alt="Look casual" loading="lazy"/></a>
-          <a href="https://instagram.com" target="_blank" rel="noopener"><img src="https://images.unsplash.com/photo-1485518882345-15568b007407?w=500&q=80&auto=format&fit=crop" alt="Vitrine" loading="lazy"/></a>
-          <a href="https://instagram.com" target="_blank" rel="noopener"><img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=500&q=80&auto=format&fit=crop" alt="Produção" loading="lazy"/></a>
+          <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500&q=80&auto=format&fit=crop" alt="Look do dia em uma grade ilustrativa" loading="lazy"/>
+          <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=500&q=80&auto=format&fit=crop" alt="Coleção nova em uma grade ilustrativa" loading="lazy"/>
+          <img src="https://images.unsplash.com/photo-1469398715555-76331a6c7c9b?w=500&q=80&auto=format&fit=crop" alt="Acessórios em uma grade ilustrativa" loading="lazy"/>
+          <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500&q=80&auto=format&fit=crop" alt="Look casual em uma grade ilustrativa" loading="lazy"/>
+          <img src="https://images.unsplash.com/photo-1485518882345-15568b007407?w=500&q=80&auto=format&fit=crop" alt="Vitrine em uma grade ilustrativa" loading="lazy"/>
+          <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=500&q=80&auto=format&fit=crop" alt="Produção em uma grade ilustrativa" loading="lazy"/>
         </div>
       </div>
     </section>
@@ -415,7 +393,7 @@
 
           <div class="cta-info">
             <div>
-              <strong>Endereço</strong>
+              <strong>Endereço ilustrativo</strong>
               <p>Rua Major Gote, 752 — Centro<br/>Patos de Minas, MG</p>
             </div>
             <div>
@@ -424,13 +402,13 @@
             </div>
             <div>
               <strong>Contato</strong>
-              <p>(34) 99999-9999<br/>contato@marcelamodas.com.br</p>
+              <p>Caio Alexandre · CA Studio<br/>(83) 92148-3515</p>
             </div>
           </div>
 
           <div class="cta-actions">
-            <a class="btn btn-primary" href="https://wa.me/5534999999999?text=Oi!%20Quero%20passar%20na%20loja." target="_blank" rel="noopener">Chamar no WhatsApp</a>
-            <a class="btn btn-ghost btn-ghost--light" href="https://maps.google.com/?q=Rua+Major+Gote,+752,+Patos+de+Minas" target="_blank" rel="noopener">Ver no Google Maps</a>
+            <a class="btn btn-primary" href="https://wa.me/5583921483515" target="_blank" rel="noopener noreferrer">Chamar no WhatsApp</a>
+            <a class="btn btn-ghost btn-ghost--light" href="#demo-info">Ver no Google Maps</a>
           </div>
         </div>
 
@@ -450,38 +428,37 @@
           <span class="logo-mark">M</span>
           <span class="logo-text">Marcela <em>Modas</em></span>
         </a>
-        <p>Loja de roupas em Patos de Minas. Moda feminina, masculina e acessórios. Atendendo a cidade desde 2014.</p>
+        <p>Conceito visual para uma loja de roupas local. Projeto demonstrativo da CA Studio.</p>
       </div>
 
       <div>
-        <h4>Visite</h4>
+        <h4>Endereço ilustrativo</h4>
         <p>Rua Major Gote, 752<br/>Centro · Patos de Minas, MG<br/>CEP 38700-000</p>
       </div>
 
       <div>
         <h4>Atendimento</h4>
-        <p>(34) 99999-9999<br/>contato@marcelamodas.com.br</p>
+        <p>Caio Alexandre · CA Studio<br/>(83) 92148-3515</p>
         <p class="footer-hours">Seg a sex · 9h às 18h30<br/>Sábado · 9h às 13h</p>
       </div>
 
       <div>
-        <h4>Siga a gente</h4>
+        <h4>Demonstração</h4>
         <ul class="footer-social">
-          <li><a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a></li>
-          <li><a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a></li>
-          <li><a href="https://wa.me/5534999999999" target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href="#demo-info">Redes sociais ilustrativas</a></li>
+          <li><a href="https://wa.me/5583921483515" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
         </ul>
       </div>
     </div>
 
     <div class="container footer-bottom">
-      <small>© <span id="year"></span> Marcela Modas · CNPJ 00.000.000/0001-00 · Todos os direitos reservados</small>
-      <small>Feito com carinho em Patos de Minas.</small>
+      <small>© <span id="year"></span> Marcela Modas · conceito fictício.</small>
+      <small>Marca e dados comerciais usados apenas para demonstração.</small>
     </div>
   </footer>
 
   <!-- ============== WHATSAPP FLOAT ============== -->
-  <a class="wa-float" href="https://wa.me/5534999999999?text=Oi!%20Vim%20pelo%20site." target="_blank" rel="noopener" aria-label="Chamar no WhatsApp">
+  <a class="wa-float" href="https://wa.me/5583921483515" target="_blank" rel="noopener noreferrer" aria-label="Chamar no WhatsApp">
     <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path fill="currentColor" d="M20.5 3.5A11 11 0 0 0 3.7 17.6L2 22l4.5-1.7A11 11 0 1 0 20.5 3.5Zm-8.5 18a9 9 0 0 1-4.6-1.3l-.3-.2-2.7 1 .9-2.6-.2-.3A9 9 0 1 1 12 21.5Zm5.2-6.8c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.8-1.9c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.5.1-.7.4-.2.3-.9.9-.9 2.2 0 1.3.9 2.5 1 2.7.1.2 1.8 2.7 4.3 3.8.6.3 1.1.4 1.4.5.6.2 1.2.2 1.6.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3Z"/></svg>
   </a>
 
