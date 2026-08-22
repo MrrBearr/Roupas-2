@@ -1,0 +1,106 @@
+/* Camada informativa da CA Studio para ações simuladas. */
+.demo-contact-dialog {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 20px;
+  border: 0;
+  background: rgba(10, 9, 8, .72);
+  color: #f7f4ee;
+  z-index: 20000;
+}
+
+.demo-contact-dialog[open] {
+  display: grid;
+  place-items: center;
+}
+
+.demo-contact-dialog::backdrop {
+  background: rgba(10, 9, 8, .72);
+  backdrop-filter: blur(5px);
+}
+
+.demo-contact-dialog__panel {
+  width: min(100%, 520px);
+  max-height: calc(100vh - 40px);
+  overflow: auto;
+  padding: clamp(26px, 5vw, 40px);
+  border: 1px solid rgba(255, 255, 255, .14);
+  border-radius: 20px;
+  background: #171512;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, .38);
+}
+
+.demo-contact-dialog__eyebrow {
+  margin: 0 0 12px;
+  color: #d5b36a;
+  font: 700 12px/1.4 Inter, system-ui, sans-serif;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.demo-contact-dialog__title {
+  margin: 0;
+  color: #fff;
+  font: 600 clamp(1.65rem, 5vw, 2.2rem)/1.12 Georgia, serif;
+  letter-spacing: -.02em;
+  text-transform: none;
+}
+
+.demo-contact-dialog__description {
+  margin: 16px 0 0;
+  color: #c9c2b8;
+  font: 400 15px/1.65 Inter, system-ui, sans-serif;
+}
+
+.demo-contact-dialog__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.demo-contact-dialog__button {
+  min-height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font: 700 14px/1.2 Inter, system-ui, sans-serif;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.demo-contact-dialog__button--primary {
+  background: #d5b36a;
+  color: #171512;
+}
+
+.demo-contact-dialog__button--secondary {
+  border-color: rgba(255, 255, 255, .24);
+  background: transparent;
+  color: #fff;
+}
+
+.demo-contact-dialog__button:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+
+@media (max-width: 520px) {
+  .demo-contact-dialog { padding: 14px; }
+  .demo-contact-dialog__panel { max-height: calc(100vh - 28px); border-radius: 16px; }
+  .demo-contact-dialog__actions { flex-direction: column; }
+  .demo-contact-dialog__button { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-contact-dialog, .demo-contact-dialog * { scroll-behavior: auto !important; }
+}
